@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Intro to Generative Art</title>
+
+  <style>
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background-color: #183d73;
+      color: white;
+      cursor: pointer;
+    }
+
+    #art {
+      font-family: monospace;
+      font-size: 32px;
+      line-height: 1;
+      overflow-wrap: anywhere;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="art" aria-label="Random geometric symbol artwork"></div>
+
+  <script>
+    function tenPrint() {
+      // Choose a hue between 180 and 280.
+      const hue = 180 + Math.random() * 100;
+      const clr = `hsl(${hue}, 80%, 30%)`;
+
+      // Changed symbols.
+      const chars = '★●◆▲■';
+      let pattern = '';
+
+      // Generate 900 symbols.
+      for (let i = 0; i < 900; i++) {
+        const index = Math.floor(Math.random() * chars.length);
+        pattern += chars[index];
+      }
+
+      document.getElementById('art').textContent = pattern;
+      document.body.style.backgroundColor = clr;
+    }
+
+    // Generate the first pattern.
+    tenPrint();
+
+    // Generate another pattern when the page is clicked.
+    document.addEventListener('click', tenPrint);
+  </script>
+</body>
+</html>
