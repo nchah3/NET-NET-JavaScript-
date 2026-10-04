@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Date + Time Demo</title>
+  </head>
+  
+  <body>
+    <script>
+      function onKawara() {
+        // Changed background color from black to navy.
+        document.body.style.background = '#142850';
+        document.body.style.margin = '0';
+        document.body.style.minHeight = '100vh';
+        document.body.style.display = 'grid';
+        document.body.style.justifyContent = 'center';
+        document.body.style.alignItems = 'center';
+        
+        const d = new Date();
+        const day = d.getDate();
+        
+        const months = [
+          'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'
+        ];
+        
+        const m = d.getMonth();
+        const month = months[m];
+        const year = d.getFullYear();
+        
+        // Changed the order to day, month, year.
+        const dateString = `${day} ${month} ${year}`;
+        
+        const span = document.createElement('span');
+        span.textContent = dateString;
+        
+        // Changed font color, size, and font families.
+        span.style.color = '#ffd166';
+        span.style.fontsize = '8vm';
+        span.style.fontFamily = 'Georgia, "Times New Roman", serif';
+        
+        document.body.appendChild(span);
+      }
+      
+      window.addEventListener('load', onKawara)
+    </script>
+  </body>
+</html>
