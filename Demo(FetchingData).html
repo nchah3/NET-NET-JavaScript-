@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fetching Data Demo</title>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      background-color: #eef4ff;
+      padding: 20px;
+    }
+
+    img {
+      width: 450px;
+      max-width: 100%;
+      height: auto;
+      display: block;
+      margin: 20px auto;
+    }
+
+    button {
+      padding: 10px 20px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>Random Golden Retriever</h1>
+
+  <button id="new-dog">Show another dog</button>
+  <p id="status" role="status"></p>
+  <img id="dog" alt="A random golden retriever" hidden>
+
+  <script>
+    async function setup() {
+      const button = document.getElementById('new-dog');
+      const status = document.getElementById('status');
+      const img = document.getElementById('dog');
+
+      button.disabled = true;
+      status.textContent = 'Loading...';
+
+      try {
+        // Request one random image from the golden retriever sub-breed.
+        const url =
+          'https://dog.ceo/api/breed/retriever/golden/images/random';
+
+        const res = await fetch(url);
+
+        if (!res.ok) {
+          throw new Error('Request failed');
+        }
+
+        const data = await res.json();
+        console.log(data);
+
+        if (data.status !== 'success') {
+          throw new Error('No image returned');
+        }
+
+        // Replace the existing image so only one dog is displayed.
+        img.onload = function () {
+          img.hidden = false;
+          status.textContent = '';
+          button.disabled = false;
+        };
+
+        img.onerror = function () {
+          img.hidden = true;
+          status.textContent = 'Image could not load. Please try again.';
+          button.disabled = false;
+        };
+
+        img.src = data.message;
+      } catch (error) {
+        status.textContent = 'Could not fetch a dog. Please try again.';
+        button.disabled = false;
+        console.error(error);
+      }
+    }
+
+    window.addEventListener('load', setup);
+    document.getElementById('new-dog').addEventListener('click', setup);
+  </script>
+</body>
+</html>
